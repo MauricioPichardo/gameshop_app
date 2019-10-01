@@ -10,7 +10,7 @@ const startB = document.querySelector('.btn__reset');
 var guess_strings = ["Clean the dishes", "Vaccum", "Sweep the floors","Fold the laundry", "Scrub the toilet","Dust the shelves"];
 var name = guess_strings[0];
 
-const alphabet = document.querySelectorAll("button");
+
 
 
 // Prepare Guessing Game
@@ -21,11 +21,13 @@ function getRandomPhraseAsArray() {
 var secret_phrase = guess_strings[getRandomPhraseAsArray()];
 
 
-
+const alphabet = document.querySelectorAll("button");
 
 
 // Create Phrase Format
 $(document).ready(function() {
+  for (let i= 0; i < alphabet.length; i += 1) {
+    alphabet[i].className='avail';}
     $('.btn__reset').click(function(){
     $('#overlay').hide();
     console.log(secret_phrase);
@@ -98,9 +100,12 @@ $(document).ready(function() {
       let alpha = e.target;
       let result =checkLetter(alpha);
         if (result!=null){
-          alpha.className += " chosen";
+          alpha.className = " chosen";
+
+          alpha.setAttribute("disabled", "");
         } else {
-          alpha.className += " lose";
+          alpha.className = " lose";
+          alpha.setAttribute("disabled", "");
           missed += 1;
           let hearts= document.querySelectorAll('.tries > img');
           console.log(hearts);
@@ -123,13 +128,15 @@ $(document).ready(function() {
     $('.initiate').click(function(){
     $('#lost').hide();
     $('#won').hide();
+
     let hearts= document.querySelectorAll('.tries > img');
     console.log(hearts);
     for ( i=0; i< 5;i++){
     hearts[i].src="images/liveHeart.png";
     missed=0;};
     for (i = 0; i < alphabet.length; i++) {
-      alphabet[i].className='keyrow';}
+      alphabet[i].className='keyrow';
+      alphabet[i].removeAttribute('disabled');}
       var secret_phrase = guess_strings[getRandomPhraseAsArray()];
       $('#overlay').hide();
       console.log(secret_phrase);
